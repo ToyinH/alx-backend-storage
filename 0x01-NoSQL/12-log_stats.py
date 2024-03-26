@@ -31,6 +31,3 @@ def log_stats():
     for method, count in method_counts.items():
         print(f"\tmethod {method}: {count}")
     print(f"{status_check_count} status check")
-
-if __name__ == "__main__":
-    log_stats()
