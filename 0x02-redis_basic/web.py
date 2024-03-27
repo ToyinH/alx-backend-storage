@@ -20,7 +20,8 @@ def cache_with_count(expiration_time=10):
         @wraps(func)
         def wrapper(url):
             # Check if URL is in cache and not expired
-            if url in cache and time.time() - cache[url]['timestamp'] < expiration_time:
+            if (url in cache and
+                    time.time() - cache[url]['timestamp'] < expiration_time):
                 cache[url]['count'] += 1
                 return cache[url]['content']
 
