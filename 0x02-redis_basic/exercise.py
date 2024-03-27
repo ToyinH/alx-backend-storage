@@ -5,6 +5,8 @@ Writing strings to Redis
 import redis
 import uuid
 from typing import Union, Callable
+from functools import wraps
+
 
 
 class Cache:
@@ -18,6 +20,16 @@ class Cache:
         self._redis = redis.Redis()
         self._redis.flushdb()
 
+    @staticmethod
+    def count_calls(method: Callable) -> Callable:
+        @wraps(method)
+        def wrapper(self, *args, **kwargs):
+            key = method.__qualname__
+            self._redis.incr(key)
+            return method(self, *args, **kwargs)
+        return wrapper
+
+    @count_calls
     def store(self, data: Union[str, bytes, int, float]) -> str:
         """
         store method
@@ -52,3 +64,5 @@ class Cache:
         get_int method
         """
         return self.get(key, fn=lambda d: int(d) if d is not None else None)
+
+    
