@@ -1,9 +1,12 @@
 #!/usr/bin/env python3
-
+"""
+Implementing an expiring web cache and tracker
+"""
 import requests
 import time
 from functools import wraps
 
+@staticmethod
 def cache_with_count(expiration_time=10):
     cache = {}
 
@@ -19,10 +22,13 @@ def cache_with_count(expiration_time=10):
             content = func(url)
 
             # Update cache
-            cache[url] = {'content': content, 'timestamp': time.time(), 'count': 1}
+            cache[url] = {
+                'content': content, 'timestamp': time.time(), 'count': 1
+                }
             return content
         return wrapper
     return decorator
+
 
 @cache_with_count()
 def get_page(url: str) -> str:
