@@ -8,9 +8,15 @@ from functools import wraps
 
 
 def cache_with_count(expiration_time=10):
+    """
+    cache_with_count method
+    """
     cache = {}
 
     def decorator(func):
+        """
+        decorator method
+        """
         @wraps(func)
         def wrapper(url):
             # Check if URL is in cache and not expired
@@ -32,5 +38,8 @@ def cache_with_count(expiration_time=10):
 
 @cache_with_count()
 def get_page(url: str) -> str:
+    """
+    get_page method
+    """
     response = requests.get(url)
     return response.text
