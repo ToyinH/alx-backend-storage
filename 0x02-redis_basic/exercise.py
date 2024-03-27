@@ -8,7 +8,6 @@ from typing import Union, Callable
 from functools import wraps
 
 
-
 class Cache:
     """
     class Cache
@@ -64,5 +63,3 @@ class Cache:
         get_int method
         """
         return self.get(key, fn=lambda d: int(d) if d is not None else None)
-
-    
