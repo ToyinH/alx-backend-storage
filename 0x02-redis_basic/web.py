@@ -6,7 +6,7 @@ import requests
 import time
 from functools import wraps
 
-@staticmethod
+
 def cache_with_count(expiration_time=10):
     cache = {}
 
